@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Breed Identification</title>
+</head>
+<body>
+    <h1>Dog Breed Identification</h1>
+    <h4>Details on GitHub: <a href="https://github.com/coding4vinayak" target="_blank">@coding4vinayak</a></h4>
+
+    <form action="/classify" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Identify your dog</button>
+    </form>
+
+{% if image_file %}
+    <h2>Uploaded Image:</h2>
+    <img src="{{ url_for('static', filename=image_file) }}" alt="Uploaded Image" style="max-width: 300px;">
+{% endif %}
+
+
+    {% if predictions %}
+    <h2>Predictions:</h2>
+    <ul>
+        {% for prediction in predictions %}
+        <li>{{ prediction.label }}: {{ prediction.confidence }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
